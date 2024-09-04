@@ -1,0 +1,42 @@
+After a creditor logs into the system, they typically perform a variety of functions related to managing their investments, monitoring debtors, and handling administrative tasks. Here are some common functions a creditor might perform:
+
+View Dashboard:
+
+Overview: Check key metrics related to their investments, including capital, payments received, and outstanding balances.
+Graphs and Reports: Review visualizations of investment performance, debtor payments, and other relevant statistics.
+Manage Debtors:
+
+View Debtor List: See a list of all debtors, their payment statuses, and amounts owed.
+Update Debtor Information: Edit details about debtors if necessary.
+Review Loan Applications:
+
+View Applications: Examine new loan applications from debtors.
+Approve/Reject Applications: Make decisions on loan applications based on criteria or policies.
+Generate Reports:
+
+Financial Reports: Produce reports on loan performance, payments, and other financial metrics.
+Custom Reports: Create ad-hoc reports based on specific needs or queries.
+Manage Tickets:
+
+View Tickets: Check the status of support or service tickets related to their account or investments.
+Create and Edit Tickets: Report new issues or update existing tickets.
+Communication:
+
+Contact Debtors: Send messages or notifications to debtors regarding payments or other issues.
+Respond to Queries: Address any inquiries or issues raised by debtors or other stakeholders.
+Manage Investments:
+
+Update Investment Details: Modify details about existing investments or funding.
+Track Returns: Monitor returns on investments over time.
+Account Management:
+
+Update Profile: Modify personal or business information related to their account.
+Change Password: Update their login credentials for security purposes.
+System Administration (if applicable):
+
+User Management: Manage system users, including adding or removing access for other creditors or administrators.
+Settings Configuration: Adjust system settings relevant to their role or business needs.
+Access Historical Data:
+
+Historical Transactions: Review past transactions and payment history.
+Archived Reports: Access previously generated reports and data.

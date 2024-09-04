@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creditor Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 50px;
+        }
+        #navbar img {
+            height: 40px; /* Adjust the logo size */
+            margin-right: 20px;
+        }
+        #navbar div {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between links */
+        }
+        #navbar a, #navbar button {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            background: none;
+            border: none;
+        }
+        #navbar a:hover, #navbar button:hover {
+            background-color: #555;
+            border-radius: 4px;
+        }
+        #dropdown-menu {
+            position: relative;
+            display: inline-block;
+        }
+        #dropdown-button {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #333;
+            border: none;
+            color: white;
+            border-radius: 4px;
+        }
+        #dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f4f4f4;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            top: 100%;
+        }
+        #dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        #dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        #dropdown-menu:hover #dropdown-content {
+            display: block;
+        }
+        #container {
+            display: flex;
+            margin-top: 50px; /* Space for the navbar */
+            height: calc(100vh - 50px);
+        }
+        #left-column {
+            width: 20%;
+            padding: 10px;
+            background-color: #f4f4f4;
+            overflow-y: auto;
+        }
+        #right-column {
+            width: 60%;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between charts */
+        }
+        #info-column {
+            width: 20%;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-left: 1px solid #ddd;
+        }
+        #main-content {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            justify-content: center; /* Center the canvas */
+        }
+        canvas {
+            max-width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            max-height: 250px; /* Adjust based on the reduced size */
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <img src="logo.png" alt="Logo"> <!-- Replace with the path to your logo image -->
+        <div>
+            <a href="index.php">Home</a>
+            <a href="contact_us.php">Contact Us</a>
+            <a href="news_update.php">News Update</a>
+            <a href="about_us.php">About Us</a>
+            <div id="dropdown-menu">
+                <button id="dropdown-button">Hello, <?php echo htmlspecialchars($_SESSION['user_name']); ?></button>
+                <div id="dropdown-content">
+                    <a href="edit_user.php">Edit Profile</a>
+                    <a href="logout.php">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="container">
+        <div id="left-column">
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="loadContent('create_ticket.php')">Create Ticket</a></li>
+                    <li><a href="#" onclick="loadContent('view_tickets.php')">View Tickets</a></li>
+                    <li><a href="#" onclick="loadContent('view_bids.php')">View Bids</a></li>
+                    <li><a href="#" onclick="loadContent('view_debtors.php')">View Debtors</a></li>
+                    <li><a href="#" onclick="loadContent('dashboard_overview.php')">Dashboard Overview</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="right-column">
+            <div id="main-content">
+                <!-- Charts and graphs will be loaded here -->
+                <div class="chart-container">
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div id="info-column">
+            <h4>Additional Information</h4>
+            <p>Here you can add notices, alerts, or any other information relevant to the user.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Function to load content dynamically into the main content area
+        function loadContent(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-content').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+
+        // Default chart data
+        const pieData = {
+            labels: ['Capital', 'Invested Money', 'Paid Interest'],
+            datasets: [{
+                label: 'Financial Distribution',
+                data: [30000, 20000, 5000], // Replace with dynamic data
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+            }]
+        };
+
+        const barData = {
+            labels: ['Debtor 1', 'Debtor 2', 'Debtor 3', 'Debtor 4', 'Debtor 5', 'Debtor 6', 'Debtor 7', 'Debtor 8', 'Debtor 9', 'Debtor 10'],
+            datasets: [{
+                label: 'Top 10 Debtors by Repayment',
+                data: [1200, 1500, 1800, 1100, 1600, 1400, 1300, 1700, 1900, 2000], // Replace with dynamic data
+                backgroundColor: '#36A2EB'
+            }]
+        };
+
+        const lineData = {
+            labels: ['2019', '2020', '2021', '2022', '2023'],
+            datasets: [{
+                label: 'Yearly Payment Returns',
+                data: [10000, 15000, 20000, 25000, 30000], // Replace with dynamic data
+                fill: false,
+                borderColor: '#FF6384',
+                tension: 0.1
+            }]
+        };
+
+        // Load the default charts
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: pieData
+        });
+
+        new Chart(barCtx, {
+            type: 'bar',
+            data: barData
+        });
+
+        new Chart(lineCtx, {
+            type: 'line',
+            data: lineData
+        });
+    </script>
+</body>
+</html>
